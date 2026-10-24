@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package serendipity.ner;
+
+option go_package = "serendipity/internal/nerpb";
+
+// NERService extracts proper-name surface forms from Turkish text.
+//
+// Why a separate service (NOT added to embedding.proto): the embedding path
+// uses the GPU; batch NER is CPU work, and a model update should not be tied
+// to redeploying the GPU service.
+service NERService {
+  // ExtractBatch returns a list of surface forms per post. An empty list is a
+  // VALID answer ("no proper name in this text"); it is NOT an error.
+  rpc ExtractBatch(ExtractRequest) returns (ExtractResponse);
+}
+
+message PostText {
+  string post_id = 1;
+  string text = 2;
+}
+
+message Span {
+  string text = 1;   // surface form, exactly as it appears in the text
+  string label = 2;  // PERSON | ORG | GPE | LOC | FAC | EVENT | PRODUCT
+  float score = 3;
+  int32 start = 4;   // start rune/character offset in the Unicode text, inclusive
+  int32 end = 5;     // end rune/character offset in the Unicode text, exclusive
+}
+
+message SpanList {
+  repeated Span spans = 1;
+}
+
+message ExtractRequest {
+  repeated PostText posts = 1;
+}
+
+message ExtractResponse {
+  // post_id -> surface forms. A post_id present in the request but ABSENT from
+  // the response means "no surface forms" for that post.
+  map<string, SpanList> results = 1;
+}

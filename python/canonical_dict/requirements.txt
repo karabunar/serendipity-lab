@@ -1,0 +1,4 @@
+httpx>=0.27
+redis>=5.0
+pytest>=8.0
+fakeredis[lua]>=2.20  # [lua] = lupa; EVAL support, required for the atomic-swap test

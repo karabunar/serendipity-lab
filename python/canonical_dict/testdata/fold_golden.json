@@ -1,0 +1,22 @@
+[
+  {"in": "Fenerbahçe",  "out": "fenerbahce"},
+  {"in": "FENERBAHÇE",  "out": "fenerbahce"},
+  {"in": "fenerbahce",  "out": "fenerbahce"},
+  {"in": "İstanbul",    "out": "istanbul"},
+  {"in": "ISTANBUL",    "out": "istanbul"},
+  {"in": "Iğdır",       "out": "igdir"},
+  {"in": "IĞDIR",       "out": "igdir"},
+  {"in": "Şişli",       "out": "sisli"},
+  {"in": "Öztürk",      "out": "ozturk"},
+  {"in": "Güneş",       "out": "gunes"},
+  {"in": "Çukurova",    "out": "cukurova"},
+  {"in": "Kadıköy",     "out": "kadikoy"},
+  {"in": "FB",          "out": "fb"},
+  {"in": "OpenAI",      "out": "openai"},
+  {"in": "X",           "out": "x"},
+  {"in": "Sarı Lacivert", "out": "sari lacivert"},
+  {"in": "A Milli Takım", "out": "a milli takim"},
+  {"in": "",            "out": ""},
+  {"in": "123",         "out": "123"},
+  {"in": "Ç-Ğ-I-İ-Ö-Ş-Ü", "out": "c-g-i-i-o-s-u"}
+]

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package serendipity.curator;
+
+option go_package = "serendipity/internal/curatorpb";
+
+// PostCurator is the bridge service (Python, LangGraph; Quality Analyst only)
+// the Go booster (cmd/curated-booster) uses to enrich candidate posts that
+// passed its heuristic pre-filter with an LLM.
+//
+// Strategy 3 (Vector-Native Matching): the post category is NOT generated as
+// text and then embedded separately (about 90% LLM cost saving). Niche
+// matching is a cosine between the user's niche embeddings and the post's
+// ALREADY existing original embedding in the vector database
+// (see internal/curated/content).
+//
+service PostCurator {
+  // EnrichPosts runs the given candidate posts through the Quality Analyst
+  // node and returns only quality_score. Synchronous, batched; called INSIDE
+  // the booster's periodic loop with its own timeout budget
+  // (CURATOR_GRPC_TIMEOUT).
+  rpc EnrichPosts(EnrichPostsRequest) returns (EnrichPostsResponse);
+
+  // HealthCheck verifies the service is up (same pattern as embedding.proto;
+  // the booster can use it as a readiness probe).
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// PostCandidate is a candidate that passed the booster's heuristic pre-filter
+// and whose content the Go side has ALREADY read (postmeta.Hydrate); the
+// Python side does NOT fetch the content again (there is no fetcher node).
+message PostCandidate {
+  string post_id = 1;
+  string text = 2;
+  bool has_media = 3;
+}
+
+message EnrichPostsRequest {
+  repeated PostCandidate candidates = 1;
+}
+
+// EnrichedPost is a candidate's Quality Analyst output. It carries NO
+// category/embedding (Strategy 3; see the service comment above).
+message EnrichedPost {
+  string post_id = 1;
+  double quality_score = 2;
+}
+
+message EnrichPostsResponse {
+  repeated EnrichedPost results = 1;
+}
+
+message HealthCheckRequest {}
+message HealthCheckResponse {
+  bool ready = 1;
+}

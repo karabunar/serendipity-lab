@@ -1,0 +1,182 @@
+# "ilçesi" soneki soyulunca sözlüğe girmesine İZİN verilen çıplak ilçe adları.
+#
+# Wikidata ilçeyi çoğunlukla "Bafra ilçesi" etiketiyle verir ve çıplak ad hiç
+# üretilmez (ayraçlı "Abana (ilçe)" biçimi normalize_alias'ta zaten soyulur).
+# Toptan soyma YAPILMAZ: ilçe adlarının bir kısmı cins kelime ya da gün adıdır.
+# Bu liste elle ayıklanmıştır — yeni ad eklemeden önce gerçek gönderilerde bağlamına bak. Satır başına bir ad, `#` yorum;
+# eşleştirme katlanmış yapılır (build.add_district_bare_aliases).
+#
+# Ölçüm: 216 adaydan 152'si kabul. Kazanç küçük — kapsam kaldıracı DEĞİL;
+# eşleşmelerin neredeyse tamamı doğru yer bağlamında (kaymakam, belediye başkanı, 📍 konum).
+#
+# REDDEDİLENLER (bilerek listede YOK):
+#   ölçümde yanlış bağlam: alaca (85/87 "alacak"), çay, çarşamba, perşembe,
+#     hani, han, selim, göle ("göle döndü"), susuz, hocalar, köşe, kale,
+#     hayrat, söke ("şoke"), tut, güce, çamaş ("çamaşır"), hamur, çıldır
+#     ("çıldırtan"), kavak, toroslar (sıradağ), kas, çubuk, kargı, gülnar,
+#     havza, arife, zara (marka), ergene ("ergenekon"), gündoğmuş,
+#     karakoyunlu (devlet), akıncılar, kumru, yeşilli, terme (Fransızca),
+#     ağın ("ağın"), kazımkarabekir (kişi) — soyadı olarak geçenler: dereli,
+#     akkuş, ilgaz, altıntaş, karlıova; mut (3 harf, "mut" kelimesi)
+#   eşleşmedi ama cins kelime / başka anlam: dinar (para), derecik, idil,
+#     kızılırmak (nehir), laçin (Azerbaycan), çerkes (halk), hemşin (halk),
+#     talas ("talaş"), yapraklı, çayırlı, hüyük ("höyük"), karamanlı,
+#     oğuzlar, sivrice, kozluk, ondokuzmayıs (tarih/üniversite),
+#     susurluk (skandal), otlukbeli (savaş), akyaka ve babadağ (aynı adlı
+#     başka yerler), acıgöl (göl)
+
+# ── ölçümde eşleşti, bağlam doğru (60) ──
+Akdağmadeni
+Akyurt
+Akçakent
+Alaplı
+Alucra
+Andırın
+Artova
+Atkaracalar
+Aşkale
+Bafra
+Başmakçı
+Beşiri
+Bozova
+Bulancak
+Bünyan
+Damal
+Digor
+Doğankent
+Dulkadiroğlu
+Erbaa
+Gülağaç
+Halfeti
+Hamamözü
+Haymana
+Hayrabolu
+Hozat
+İhsaniye
+İskilip
+Karacabey
+Kiğı
+Kovancılar
+Koyulhisar
+Kızılören
+Lalapaşa
+Mahmudiye
+Mazgirt
+Merzifon
+Musabeyli
+Niksar
+Nurdağı
+Odunpazarı
+Pervari
+Piraziz
+Pülümür
+Sapanca
+Sarıoğlan
+Sinanpaşa
+Suluova
+Taşova
+Tercan
+Tomarza
+Vakfıkebir
+Varto
+Yağlıdere
+Çamlıhemşin
+Çayeli
+Çemişgezek
+Şalpazarı
+Şenkaya
+Şereflikoçhisar
+
+# ── ölçümde eşleşmedi, elle ayıklandı (92) ──
+Acıpayam
+Adaklı
+Alacakaya
+Almus
+Altunhisar
+Altınekin
+Ardeşen
+Arguvan
+Arpaçay
+Arıcak
+Başiskele
+Beylikova
+Beytüşşebap
+Boğazkale
+Buharkent
+Cihanbeyli
+Cumayeri
+Dadaşkent
+Dazkırı
+Demirözü
+Dernekpazarı
+Devrek
+Diyadin
+Doğanyol
+Doğanşehir
+Eflani
+Elbeyli
+Eleşkirt
+Emirdağ
+Erfelek
+Erzin
+Espiye
+Eynesil
+Gemerek
+Gercüş
+Gerze
+Gökçebey
+Görele
+Göynücek
+Gümüşhacıköy
+Gürün
+Güçlükonak
+Hafik
+Hanak
+Hanönü
+Harmancık
+Havsa
+İliç
+Karaçoban
+Keban
+Kemaliye
+Keşan
+Keşap
+Korgun
+Kuluncak
+Kurtalan
+Lapseki
+Mazıdağı
+Mecitözü
+Murgul
+Pazaryolu
+Polateli
+Refahiye
+Reşadiye
+Serinhisar
+Sincik
+Sulakyurt
+Sultanhanı
+Sultanhisar
+Sumbas
+Süloğlu
+Taşlıçay
+Taşmış
+Tekman
+Tillo
+Tirebolu
+Tortum
+Uğurludağ
+Yahyal
+Yalvaç
+Yavuzeli
+Yayladere
+Yedisu
+Çamlıdere
+Çamoluk
+Çayıralan
+Çağlayancerit
+Çelikhan
+Çukurca
+Şaphane
+Şefaatli
+Şenpazar

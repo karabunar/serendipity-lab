@@ -1,0 +1,559 @@
+# Takma ad olarak KABUL EDILMEYEN kelimeler.
+#
+# Wikidata altLabel'lari zaman zaman gundelik Turkce kelimelerle cakisir
+# ("Genc" bir kulup kisaltmasi olarak gecebilir, "Spor" bir kurum adinin
+# parcasi olabilir). Bunlar metinde surekli gectigi icin her posta yanlis
+# entity yapistirirlar — precision'i sessizce oldururler.
+#
+# Karsilastirma KATLANMIS yapilir (fold.py); buraya aksanli yazabilirsin.
+# Bir satir = bir kelime. '#' sonrasi yorumdur.
+
+# Genel
+spor
+haber
+haberler
+kulup
+kulubu
+takim
+takimi
+mac
+maci
+lig
+ligi
+sezon
+yeni
+eski
+buyuk
+kucuk
+genc
+milli
+ulusal
+resmi
+merkez
+grup
+grubu
+parti
+partisi
+sirket
+sirketi
+kurum
+kurumu
+dernek
+vakif
+birlik
+birligi
+belediye
+belediyesi
+sehir
+sehri
+ilce
+ilcesi
+koy
+mahalle
+bolge
+bolgesi
+
+# Cok genel kisaltma/edat/zamir gurultusu
+ve
+ile
+icin
+ama
+veya
+bir
+bu
+su
+o
+da
+de
+ki
+mi
+ne
+her
+tum
+en
+cok
+az
+var
+yok
+
+# Turkce ekler
+#
+# Neden burada: Go tarafindaki tarayici (canonicaldict.Match) kesme
+# isaretinden sonraki eki artik kelime basi saymiyor, ama kesme isareti
+# OLMADAN yazilan ekler ("Rizede", "maclarda") hala kelime icinde kalir ve
+# sinir kuralindan gecmez. Asil risk baska: bu ekler TEK BASLARINA bir
+# takma ad olarak sozluge girerse (MIN_ALIAS_LEN=2 oldugu icin mumkun)
+# korpustaki her iyelik/bulunma yapisinda ateslerler.
+ta
+te
+ya
+ye
+yi
+yu
+nin
+nın
+nun
+nün
+den
+dan
+ten
+tan
+le
+la
+
+# Ingilizce sizinti
+the
+and
+for
+new
+old
+city
+club
+team
+group
+company
+party
+news
+sport
+sports
+official
+national
+
+# ── Gundelik Turkce kelimelerle olculen carpismalar ──
+#
+# 30 kategoriye cikildiginda 15 notr Turkce cumlenin 4'u yanlis entity
+# uretiyordu ("bugun" → Bugun gazetesi, "top oynuyor" → Twenty One Pilots).
+# 334 yuksek frekansli gundelik kelime sozlukle kesistirildi, 51 carpisma
+# bulundu. Asagidakiler gundelik anlami baskin olanlar.
+#
+# ⚠️ KASITLI ISTISNA: "agri" (Agri ili) ve "ordu" (Ordu ili) burada YOK —
+# ikisi de gercek il adidir. Ek almis biciMLERI zaten eslesmez, cunku
+# 4 rune'luk bir eslesme MinSuffixMatchRunes=5 sartina takilir
+# ("agrisi"/"ordusu" eslesmez), yalniz yalin hâlleri eslesir.
+
+# Gundelik isim/fiil/sifat
+aci
+arac
+ask
+av
+baba
+bahce
+bal
+bilgi
+bugun
+can
+dis
+dort
+dus
+el
+er
+et
+gunes
+hep
+il
+im
+ip
+it
+karar
+kes
+kirmizi
+mal
+mavi
+net
+of
+orta
+oz
+pis
+sabah
+sac
+sar
+sari
+sel
+sik
+sin
+sis
+sur
+tas
+tip
+top
+ur
+ut
+vatan
+yap
+yas
+yedi
+yen
+yes
+zaman
+
+# Ulke/sehir kodu olarak gelip Turkce kelimeye carpanlar
+af
+an
+ant
+kos
+ol
+uy
+
+# ── Fiil koku carpismalari ──
+# 5+ haneli koku olan fiiller MinSuffixMatchRunes esigini gecer, yani ek
+# alarak kelime ortasinda bitebilirler. Demoda gorulen:
+#   "Trabzonspor deplasmanda kazandi" → [Trabzonspor, Kazan]
+kazan
+# "Getir" gercek bir marka; feda BILINCLI. "getirdi/getiriyor/getirmek"
+# fiili markadan cok daha sik gecer ve her birinde yanlis entity uretirdi.
+# Kisa/belirsiz alias'larin metinde BUYUK HARFLE yazilmasini sart kosan
+# bir eslestirici kurali gelirse bu geri alinabilir.
+getir
+
+# 1.099 cekimli fiil bicimi tarandi; ikisi carpisiyordu.
+# Ikisi de TAM ADIYLA sozlukte kaldigi icin kayip yok:
+#   "giuseppe verdi" ve "gelecek partisi" alias olarak duruyor.
+verdi     # "yanit/karar/izin verdi" → Giuseppe Verdi
+gelecek   # "gelecek hafta/yil" → Gelecek Partisi
+
+# Wikidata, Kirim'daki Kerc'e "Bogazici" takma adini vermis. Turkce'de bu
+# kelime Bogaz'i ya da universiteyi anlatir, Kirim'i degil. Tek aday
+# oldugu icin "kendi adi" kurali devreye girmez; engellemek gerekiyor.
+# "bogazici universitesi" alias'i etkilenmez.
+bogazici
+
+# ── Gerçek veriden ──
+# Sentetik cumleler bu kelimeleri hic uretmemisti; gercek korpus uretti.
+# Her biri ya cok sik bir gundelik kelime ya da bir soru/baglac ekidir.
+gore      # "sonuclara gore" → Al Gore
+kabul     # "kabul etti" → Kabil (sehir "kabil" alias'iyla ERISILEBILIR kalir)
+mu        # soru eki → Morityus (ISO kodu MU)
+sey       # "boyle sey" → Seyseller
+sc        # Seyseller ISO kodu
+sol       # Solomon Adalari ISO kodu (stated in an earlier round but never WRITTEN)
+olur      # "olur mu" → Olur (Erzurum ilcesi, 2 sitelink)
+sana      # "sana dedim" → Sana TV (2 sitelink)
+gazi      # "gazi" → Mustafa Kemal Atatürk ("ataturk" alias'i kalir)
+hac       # "hac" → Le Havre AC
+baris     # "baris" → Baris (Pisidya)
+ulus      # "ulus" → Ulus (gazete)
+taraz     # "taraz taraz" → Taraz (Kazakistan)
+yangi     # "yangin" → Taraz ("yangi" alias'i ek kuralindan gecip yutuyor)
+osman     # cok yaygin ilk ad → Osman I
+
+# ── Gerçek veri, 2. dalga ──
+bi            # kolloquial "bir" → Burundi (ISO BI)
+cs            # Ciudadanos kisaltmasi
+pazar         # "pazar gunu" → Pazar (Rize ilcesi)
+vatandaslar   # "vatandaslar tepkili" → Ciudadanos'un Turkce cevirisi
+alp           # yaygin ilk ad → Avustralya Isci Partisi
+pes           # "pes etmek" → Avrupa Sosyalistler Partisi
+ani           # "ani gelisme" / "ani" → Ani (harabe)
+bar           # → Barbados
+man           # → Memphis, Misir
+red           # → Xiaohongshu
+bor           # → Bor (yabanci rayon; Nigde'nin Bor'u degil)
+philadelphia  # tek dogru cevap ABD sehri ama Lidya/Kilikya kayitlari
+              # ONCELIKTE onu geciyor; yanlis cevap vermektense hic verme
+
+# ── Gerçek veri, 3. dalga ──
+# Korpusta "Cumhuriyet" gazeteyi degil cumhuriyeti/kurumu anlatiyor:
+#   "Istanbul Cumhuriyet Bassavciligi", "Cumhuriyet Halk Partisi"
+# CHP zaten daha uzun alias'la eslesiyor, kayip yok.
+cumhuriyet
+
+# ── Yaygin Turk/Islam ilk adlari ──
+# Tek basina bir ILK AD hicbir zaman guvenilir bir varlik gondergesi
+# degildir. Olculen zarar: `muhammed` → VI. Muhammed (Fas krali) 1000
+# gonderide 16 kez, `huseyin` → Saddam Huseyin, `abdullah` → Abdullah
+# bin Abdulaziz. Dini icerigi yogun bir korpusta bunlar en zararli
+# yanlis pozitiflerdi. Tam adlar ("Saddam Huseyin") etkilenmez.
+muhammed
+huseyin
+abdullah
+mehmet
+mustafa
+ahmet
+kemal
+ibrahim
+suleyman
+omer
+
+# ── Gercek gonderi orneginde olculdu ─────────────
+# Kural: >=20 eslesme VE bagimsiz bir NER tarafindan destek <%25.
+# Bunlarin hepsi gundelik Turkce kelimenin bir varlik alias'iyla carpismasi;
+# olcumde profilleri zehirledikleri gorulen sinif. Format: yuzey  # eslesme,
+# destek orani, carpistigi kanonik ad.
+#
+# Cok kelimeli adaylar BILEREK dislandi: 'cumhurbaskani erdogan' (729 eslesme,
+# %15 destek) mesru bir alias'tir — dusuk destek olcutun kendi hatasidir,
+# NER tam ifadeyi degil yalniz 'Erdogan'i etiketler.
+kabil  # 615 eslesme, 10% destek → Kabil
+eger  # 531 eslesme, 8% destek → Eğri
+nice  # 434 eslesme, 13% destek → Nice
+vakit  # 413 eslesme, 14% destek → Vakit
+disi  # 398 eslesme, 19% destek → Demokratik Seferberlik Partisi
+suruc  # 395 eslesme, 4% destek → Suruç (ilçe)
+muhabbet  # 383 eslesme, 20% destek → Muhabbet
+hirsiz  # 317 eslesme, 22% destek → Thodex
+seven  # 302 eslesme, 15% destek → Yedi
+hassa  # 301 eslesme, 12% destek → Hassa
+yabanci  # 276 eslesme, 13% destek → Yabancı
+yeryuzu  # 247 eslesme, 24% destek → Yeryüzü
+firtina  # 229 eslesme, 11% destek → Bucaspor
+sarsilmaz  # 223 eslesme, 8% destek → Sarsılmaz
+mali  # 222 eslesme, 17% destek → Mali
+finans  # 220 eslesme, 15% destek → Türkiye Finans
+inter  # 215 eslesme, 23% destek → FC Internazionale Milano
+sandi  # 212 eslesme, 8% destek → San Diego
+baglar  # 198 eslesme, 7% destek → Bağlar
+aralik  # 190 eslesme, 3% destek → Aralık
+baslangic  # 188 eslesme, 14% destek → Başlangıç
+takvim  # 186 eslesme, 18% destek → Takvim Gazetesi
+torun  # 183 eslesme, 13% destek → Toruń
+refah  # 180 eslesme, 13% destek → Refah
+zemin  # 179 eslesme, 1% destek → Jiang Zemin
+kulun  # 172 eslesme, 6% destek → Ulan Batur
+maske  # 146 eslesme, 9% destek → Maske
+parma  # 137 eslesme, 4% destek → Parma
+vefa  # 135 eslesme, 23% destek → Vefa SK
+diken  # 135 eslesme, 10% destek → Diken
+pence  # 132 eslesme, 4% destek → Mike Pence
+halle  # 130 eslesme, 6% destek → Halle
+provo  # 127 eslesme, 2% destek → Provo
+dili  # 125 eslesme, 10% destek → Dili
+kostu  # 125 eslesme, 6% destek → Kocaeli Sağlık ve Teknoloji Üniversitesi
+tanin  # 117 eslesme, 3% destek → Tanin
+kuslar  # 117 eslesme, 12% destek → Kuşlar
+goreme  # 113 eslesme, 4% destek → Göreme
+maden  # 101 eslesme, 16% destek → Maden
+evren  # 99 eslesme, 20% destek → Evren (ilçe)
+dinler  # 98 eslesme, 8% destek → İsmail Dinler
+sapik  # 86 eslesme, 23% destek → Sapık
+ilgin  # 86 eslesme, 9% destek → Ilgın (ilçe)
+ozgun  # 83 eslesme, 12% destek → Özgün
+dirilis  # 76 eslesme, 9% destek → Diriliş
+caba  # 72 eslesme, 0% destek → Buenos Aires
+sart  # 72 eslesme, 12% destek → Sardis
+surat  # 68 eslesme, 6% destek → Surat
+salta  # 67 eslesme, 21% destek → Salta
+markasi  # 66 eslesme, 6% destek → Kahramanmaraş
+garanti  # 65 eslesme, 9% destek → Garanti BBVA
+cekerek  # 65 eslesme, 20% destek → Çekerek ilçesi
+ciglik  # 65 eslesme, 6% destek → Çığlık
+cigli  # 64 eslesme, 9% destek → Çiğli
+pazarlar  # 60 eslesme, 12% destek → Pazarlar (ilçe)
+kayyu  # 59 eslesme, 10% destek → Caillou
+asti  # 59 eslesme, 2% destek → Asti
+baskil  # 57 eslesme, 2% destek → Baskil
+kulu  # 55 eslesme, 18% destek → Kulu
+posta  # 55 eslesme, 9% destek → Posta
+defne  # 55 eslesme, 20% destek → Defne (ilçe)
+fazilet  # 53 eslesme, 15% destek → Fazilet Partisi
+reform  # 51 eslesme, 24% destek → Reform UK
+karakol  # 51 eslesme, 18% destek → Karakol
+bari  # 49 eslesme, 12% destek → Bari
+yildo  # 47 eslesme, 13% destek → Yıldo
+sardi  # 47 eslesme, 2% destek → Sardis
+bekasi  # 43 eslesme, 2% destek → Bekasi
+manas  # 40 eslesme, 12% destek → Manas
+eti  # 38 eslesme, 18% destek → ETİ ŞİRKETLER GRUBU
+sarar  # 38 eslesme, 0% destek → Sarar
+savur  # 38 eslesme, 0% destek → Savur
+robotlar  # 38 eslesme, 5% destek → Robotlar
+radikal  # 37 eslesme, 5% destek → Radikal
+cokus  # 37 eslesme, 14% destek → Çöküş
+eskil  # 36 eslesme, 11% destek → Eskil (ilçe)
+kissa  # 36 eslesme, 14% destek → Kissa
+esrar  # 35 eslesme, 9% destek → Yahya Kemal Beyatlı
+deva  # 35 eslesme, 17% destek → Demokrasi ve Atılım Partisi
+carpisma  # 35 eslesme, 0% destek → Çarpışma
+ati  # 34 eslesme, 24% destek → ATI Technologies
+tekel  # 33 eslesme, 21% destek → TEKEL
+erenler  # 33 eslesme, 18% destek → Erenler
+sirt  # 32 eslesme, 3% destek → Sirte
+balya  # 31 eslesme, 10% destek → Balya
+kirac  # 31 eslesme, 23% destek → Kıraç
+kokan  # 30 eslesme, 10% destek → Hokand
+yaratiklar  # 29 eslesme, 14% destek → Yaratık 2
+karaci  # 28 eslesme, 14% destek → Karaçi
+esen  # 27 eslesme, 19% destek → Esentepe Spor Kulübü
+arabalar  # 26 eslesme, 8% destek → Arabalar
+araban  # 26 eslesme, 19% destek → Araban
+bozkir  # 26 eslesme, 23% destek → Bozkır
+vize  # 25 eslesme, 4% destek → Vize
+kalam  # 24 eslesme, 8% destek → Abdul Kalam
+odemis  # 23 eslesme, 13% destek → Ödemiş
+dune  # 22 eslesme, 5% destek → Dune
+termal  # 21 eslesme, 5% destek → Termal (ilçe)
+tercuman  # 21 eslesme, 10% destek → Bugün (gazete, 2005)
+adada  # 20 eslesme, 0% destek → Adada
+#
+# Asagidakiler ADAY OLARAK CIKTI ama overrides.json'da kuratorlu
+# olduklari icin EKLENMEDI — 'elle bakim her zaman kazanir' ilkesi:
+# sozcu # 206 eslesme, 12% destek → Sözcü
+# 'sozcu' insan incelemesi bekliyor: olcumde 206 eslesme / %12 destek,
+# yani eslesmelerin cogu gazete degil 'sozcu' (spokesperson) kelimesi.
+# Karar kuratorun: override kalsin mi, yoksa force:true ile mi tutulsun.
+#
+# --- (gonderi ornegi, taze Wikidata build'i) ---
+# Olcut NER destegi DEGIL, elle bakilan baglam: listelenen her anahtarin
+# ornek baglamlarinin TAMAMI cins isim / dua kalibi / baska bir kelimenin
+# onekiydi. Sayilar 2000 gonderideki eslesmedir.
+amin  # 22 → İdi Amin; "Amin" duasi
+mubarek  # 17 → Hüsnü Mübarek; "mübarek olsun"
+zafer  # 20 → Zafer Partisi; "Zafer Bayramı"
+kara  # 16 → Kara; "İnsansız Kara Aracı"
+anadol  # 14 → Anadol; "Anadolu"nun oneki
+celle  # 2 → Celle; "Celle Celâlühû"
+bismil  # 11 → Bismil; "Bismillah"nin oneki
+alâ  # 6 → Alâattin Baydar; "salli alâ", "alâ külli hâl"
+sinan  # 6 → Hakan Karahan; yaygin ilk ad, yanlis esleme
+ismail  # 10 → İzmail (Ukrayna); yaygin ilk ad
+smil  # İzmail'in turetilmis alias'i, anlamsiz
+t.c.  # 9 → Top Cat; "T.C. Mardin Valiliği" (Türkiye Cumhuriyeti)
+seytan  # 13 → Şeytan (film); dini metin
+you  # 8 → You (dizi); Ingilizce metin
+from  # 7 → From (dizi); Ingilizce metin
+# ikinci katman (ayni denetim, 3-14 eslesme araligi):
+saray  # 5 → Saray (Tekirdağ); "saray", "saraycık"
+ceza  # 5 → Ceza (rapci); cins isim
+korfez  # 4 → Körfez (ilce); "İzmit körfezi"
+liber  # 4 → Liberya; "liberaltrhaber" oneki
+halil  # 4 → Halil; yaygin ilk ad
+emre  # 4 → Emre Belözoğlu; yaygin ilk ad
+nese  # 4 → Neşe; ilk ad / cins isim
+labor  # 4 → Avustralya İşçi Partisi; "laboratuvar" oneki
+turku  # 4 → Turku (Finlandiya); "türkü"
+cinar  # 4 → Çınar; agac / ilk ad
+sakli  # 3 → The Affair; "saklı"
+today  # 3 → The Today Show; Ingilizce metin
+said  # 3 → Edward Said; Ingilizce "said"
+kiyamet  # 6 → Kıyamet; "kıyamete kadar"
+# ucuncu katman — belirsiz anahtarlar, kurator karari. Oran:
+# 2000 gonderideki TUM baglamlar icinde dogru varliga isaret edenler.
+ordu  # 1/16 → Ordu; "ordusu", "ordularımız"
+aydin  # 0/16 → Aydın; "aydınlık", "aydınlatma", soyadi
+fatih  # 2/14 → Fatih (ilce); ilk ad, Fatih Sultan Mehmet
+yildirim  # 1/11 → Yıldırım (ilce); soyadi, yildirimgazetesi
+kartal  # 0/3 → Kartal (ilce); soyadi — BJK icin "kara kartal" override'i var
+adalar  # 0/4 → Adalar (ilce); "Yunan adaları"
+kilis  # 1/4 → Kilis (ilce); "kiliselerinde" oneki
+imparator  # 0/4 → Fatih Terim; "imparatorluğu"
+sozcu  # 1/2 → Sözcü; "hakikatin sözcüsü" — override'dan cikarildi
+# BILEREK TUTULANLAR: tokat (6/7), reis (10/11 Erdoğan), katar (3/5),
+# misir (cogu Mısır), cin (katlamada Çin'den ayrilamaz; ulke kaybi pahali).
+selcuk  # 0/14 → Selçuk (ilce); kişi adı hashtag'leri, "Selçuk abim", #selcukuniversitesi — ilce "selcuk, izmir" alias'iyla kalir
+#
+# --- dorduncu tur: URETIM eslestiricisiyle denetim (gercek gonderi ornegi,
+# alias → kanonik 'ornek baglam'). Her anahtarin ornek baglamlari elle incelendi.
+# onek/kelime tuzagi (eslesmelerin cogu kelime icinde bitiyor):
+sadak  # → Satala 'sadakat'
+patron  # → Patron 'patronlari'
+milliyet  # → Milliyet 'milliyetci'
+konak  # → Konak 'konaklama'
+engels  # → Engels 'engelsiz'
+harbin  # → Harbin 'harbinde'
+bulvar  # → Bulvar 'bulvari'
+gumru  # → Gümrü 'gumruk'
+olimpiya  # → Olimpiya 'olimpiyat'
+berna  # → Bern 'bernameya'
+dersim  # → Tunceli 'dersimiz'
+balcik  # → Balçık 'balcikla'
+prestij  # → Prestij (film)
+kasa  # → Košice
+oran  # → Vehran
+aroma  # → Aroma
+sakiz  # → Sakız 'sakizci'
+korkut  # → Korkut ilçesi 'Korkut hava savunma'
+tanca  # → Tanca 'tancalan'
+piran  # → Piran 'pirana'
+fonda  # → Jane Fonda 'fondamentaux'
+furth  # → Fürth 'further'
+galle  # → Galle 'galler'
+gence  # → Gence 'gencer'
+mursi  # → Muhammed Mursi 'mursid'
+pamuk  # → Orhan Pamuk 'pamuklara'
+conte  # → Giuseppe Conte 'contestants'
+musluman kardesler  # → Müslüman Kardeşler 'kardeslerim'
+# yaygin ilk ad / soyad → baska kisi ya da yer:
+recep  # → Erdoğan 'Recep Kaya'
+erkan  # → Erkan Sağlık
+emrah  # → Emrah İpek
+sedat  # → Enver Sedat
+fuat  # → Fuat Ergin
+bekir  # → Ebu Bekir
+ebubekir  # → Ebu Bekir
+perihan  # → Romalı Perihan
+sirin  # → Seray Kaya
+tekin  # → Magnesia 'Bakan Tekin'
+hacibektas  # → Hacıbektaş 'Hacıbektaşoğlu'
+ilica  # → Ilıca 'Ilıcalı'
+tosya  # → Tosya 'Tosyalı'
+ahlat  # → Ahlat 'Ahlatcı'
+karakose  # → Ağrı 'Meryem Karaköse'
+sogut  # → Söğüt 'Adem Söğüt'
+abbas  # → Mahmud Abbas 'Abbas Arakçi'
+george  # → Lloyd George 'George Lucas'
+silva  # → Lula 'Rosangela Lula da Silva'
+mira  # → Myra (kiz adi)
+berat  # → Berat (ilk ad)
+karakas  # → Caracas '@karakas1969'
+ozata  # → Özgür Özata 'Özata Denizcilik'
+salah  # → Muhammed Salah 'ticarete salah'
+# eser/grup/Ingilizce kelime:
+vincenzo  # → Vincenzo (dizi) 'Vincenzo Montella'
+system  # → System of a Down
+manifest  # → Manifest (dizi)
+days  # → Days of Our Lives
+terminal  # → Terminal (film)
+hollywood  # → Hollywood (dizi)
+community  # → Community
+more  # → Thomas More
+major  # → John Major
+best  # → George Best
+king  # → Martin Luther King 'Burger King'
+europe  # → Europe (grup)
+earth  # → Black Sabbath
+him  # → HIM
+amazon  # → The Pussycat Dolls
+angel  # → Angel 'angelina'
+artist  # → Artist
+yaratik  # → Yaratık
+avci  # → Avcı
+animasyon  # → Winx Club
+acil servis  # → Acil Servis (dizi)
+the inter  # → Inter 'the international'
+ertugrul  # → Diriliş: Ertuğrul 'Ertuğruloğlu'
+# cins isim / baska:
+hoca  # → Enver Hoca
+stadi  # → Helsinki 'Kocaeli Stadı'
+baki  # → Bakü 'ne dem baki'
+aman  # → Amman
+billah  # → Ahmed bin Billah 'vallahi billahi'
+selimiye  # → Side 'Selimiye Camii'
+cesme  # → Çeşme 'çeşme akmıyor'
+hurriyet  # → Hürriyet 'hürriyetimiz' — override'dan CIKARILDI
+bombay  # → Mumbai 'bombayla' (5/5 kelime icinde)
+cola  # → Columbia 'Coca Cola'
+demirci  # → Demirci (ilce) 'Demircioğlu'
+# ANTIK KANONIK SINIFI: bazi ilce
+# adlari antik yerlesim kanoniklerine baglaniyordu (turhal→Gaziura,
+# taskopru→Pompeiopolis, beysehir→Mistea, kelkit→Satala, mudurnu→Modrene,
+# ortakoy→Şapinuva). Yer dogru, kanonik ad yaniltici; blocklist yeri
+# sozlukten tamamen dusururdu. Override'lar ilcenin KENDI kanonigine baglar
+# ("turhal" ile "turhal ilcesi" ayni anahtarda birlesir). karakose burada
+# blocklist'te kalir — sebebi kisi adi ('Meryem Karaköse'), antik ad degil.
+# BESINCI TUR:
+polis  # → Emniyet Genel Müdürlüğü 'şehit polis' (120 eslesme, meslek adi)
+mah  # → Millî Emniyet Hizmeti Riyâseti 'Beştepe Mah.' (mahalle kisaltmasi)
+ittifaklar  # → İttifak Devletleri 'tek taraflı ittifaklar'
+itilaf  # → İtilaf Devletleri 'iti itilaf etmek'
+hazine bakanligi  # → Hazine ve Maliye Bakanlığı 'ABD Hazine Bakanlığı' (2/2)
+bakanlar kurulu  # → Cumhurbaşkanlığı Kabinesi 'Azerbaycan'da Bakanlar Kurulu'
+ttk  # → Türk Tarih Kurumu ama 'Türkiye Taşkömürü Kurumu (TTK)' da (1/2)
+jit  # → JİTEM 'aggressively jit your work' (Ingilizce)
+cmb  # → Sermaye Piyasası Kurulu 'from the CMB' (Ingilizce, kozmik fon)
+abo  # → Afrika Birliği Örgütü / Turku 'abo jaleeb' (Arapca yer adi)
+# AYNI ETIKET BIRLESMESI: Wikidata'da iki ayri orgut ayni tr
+# etiketini tasiyor ("Hizbullah" = Lubnan Q41053 + Turk Q1621312;
+# "Demokratik Birlik Partisi" = PYD Q864766 + Kuzey Irlanda DUP Q215519) ve
+# build ayni etiketli kayitlari cakisma saymadigi icin takma adlarini tek
+# kanonige topluyordu. Ayirma overrides.json'da; bu ifade Hizbullah'in duz
+# cevirisi, dini metinde de gecer:
+allah'ın taraftarı

@@ -1,0 +1,20 @@
+grpcio==1.68.1
+# pytest is a TEST dependency, not a runtime one, but it lives HERE: the NER service has no
+# separate requirements-local.txt, and test_server.py imports the model, so the tests only run
+# in an environment with spaCy and the model installed (the same pip install). A second file
+# would risk the two lists drifting apart.
+pytest==8.3.4
+grpcio-tools==1.68.1
+protobuf==5.29.1
+spacy==3.8.16
+# ⚠️ THE MODEL VERSION IS PINNED — do NOT use `resolve/main`.
+#
+# That URL used to follow the HEAD of the Hugging Face repository. With spaCy itself pinned
+# (spacy==3.8.16) a mutable model would let NER behavior drift silently when the wheel is
+# updated, and without a re-scan path the result would be a MIXED corpus (some posts tagged
+# by the old model, some by the new one).
+#
+# The pin is a Hugging Face commit SHA (the repository has no git tags).
+# When updating: take the new SHA, then re-run the NER tests to prove the golden matches did
+# not change.
+tr_core_news_lg @ https://huggingface.co/turkish-nlp-suite/tr_core_news_lg/resolve/0231497caafdbed39d5d6a8d3c5d83871084be6f/tr_core_news_lg-1.0-py3-none-any.whl

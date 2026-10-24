@@ -1,0 +1,124 @@
+{
+  "_description": "Behavior lock for the dictionary output (python/validate_canonical_dict.py). Keys are FOLDED aliases. Written after verifying against a real build following 1b.6. If an entry changes on purpose, change it here too and state the reason in the commit message.",
+  "alias": {
+    "nato": "NATO",
+    "birlesmis milletler": "Birleşmiş Milletler",
+    "avrupa birligi": "Avrupa Birliği",
+    "imf": "Uluslararası Para Fonu",
+    "oecd": "OECD",
+    "tbmm": "Türkiye Büyük Millet Meclisi",
+    "aym": "Türkiye Cumhuriyeti Anayasa Mahkemesi",
+    "anayasa mahkemesi": "Türkiye Cumhuriyeti Anayasa Mahkemesi",
+    "yargitay": "Yargıtay",
+    "danistay": "Danıştay",
+    "tsk": "Türk Silahlı Kuvvetleri",
+    "afad": "Afet ve Acil Durum Yönetimi Başkanlığı",
+    "iskur": "Türkiye İş Kurumu",
+    "diyanet": "Diyanet İşleri Başkanlığı",
+    "msb": "Türkiye Cumhuriyeti Millî Savunma Bakanlığı",
+    "ssb": "Savunma Sanayii Başkanlığı (Türkiye)",
+    "meb": "Millî Eğitim Bakanlığı",
+    "tubitak": "TÜBİTAK",
+    "osym": "Ölçme, Seçme ve Yerleştirme Merkezi",
+    "hatay": "Hatay",
+    "hakkari": "Hakkâri",
+    "ankara": "Ankara",
+    "istanbul": "İstanbul",
+    "kocaeli": "Kocaeli",
+    "bafra": "Bafra ilçesi",
+    "turhal": "Turhal ilçesi",
+    "trump": "Donald Trump",
+    "pyd": "Demokratik Birlik Partisi (PYD)",
+    "demokratik birlik partisi": "Demokratik Birlik Partisi (PYD)",
+    "dup": "Demokratik Birlik Partisi (Kuzey İrlanda)",
+    "kuzey irlanda demokratik birlik partisi": "Demokratik Birlik Partisi (Kuzey İrlanda)",
+    "hizbullah": "Hizbullah",
+    "lubnan hizbullahi": "Hizbullah",
+    "hezbollah": "Hizbullah",
+    "turk hizbullahi": "Hizbullah (Türkiye)",
+    "kurt hizbullahi": "Hizbullah (Türkiye)",
+    "meta ai": "Meta, Inc.",
+    "meta platforms": "Meta, Inc.",
+    "ayvacik": "Ayvacık",
+    "ayvacik ilcesi": "Ayvacık",
+    "hama": "Hama",
+    "humus": "Humus"
+  },
+  "category": {
+    "Hatay": "province_tr",
+    "Ankara": "city_tr",
+    "İstanbul": "city_tr",
+    "NATO": "intl_org",
+    "Birleşmiş Milletler": "intl_org",
+    "Türkiye Büyük Millet Meclisi": "state_tr",
+    "Türk Silahlı Kuvvetleri": "state_tr",
+    "Yargıtay": "state_tr"
+  },
+  "absent_alias": {
+    "_reason_organization": "User decision: institutions yes, organizations no",
+    "organization": [
+      "feto",
+      "pkk",
+      "deas",
+      "isid",
+      "hamas",
+      "ypg",
+      "tugva",
+      "ulku ocaklari",
+      "musluman kardesler"
+    ],
+    "_reason_poison": "Measured false matches (see blocklist.txt comments)",
+    "poison": [
+      "polis",
+      "mah",
+      "ittifaklar",
+      "itilaf",
+      "hazine bakanligi",
+      "bakanlar kurulu",
+      "ttk",
+      "alaca",
+      "cay",
+      "carsamba",
+      "kale",
+      "hani",
+      "spor",
+      "yeni",
+      "allah'in taraftari"
+    ]
+  },
+  "forbidden_qid_in_new_category": {
+    "_reason": "The 1b.6 categories (province_tr/state_tr/intl_org) must NOT bring these in — locks the exclusions in the query",
+    "Q133207": "Müslüman Kardeşler",
+    "Q190193": "Uluslararası Krishna Bilinci Derneği",
+    "Q852242": "Kardinaller Koleji",
+    "Q157169": "YMCA",
+    "Q3917681": "büyükelçilik (sınıf)",
+    "Q20054638": "TBMM 25. dönem milletvekilleri listesi"
+  },
+  "warn_qid": {
+    "_reason": "Controversial records awaiting a decision (empty today). A warning, not an error."
+  },
+  "kept_qid": {
+    "_reason": "User decision: these organizations from the former political_party_world category are KEPT ON PURPOSE, on the grounds that today's frequency (11 posts a week, only Hizbullah) does not reflect future relevance. Printed as info. PYD (Q864766) stays in the dictionary with the override canonical 'Demokratik Birlik Partisi (PYD)'; since it has no entity record it is checked by the alias lock (alias section), not by QID; Q215519 is NOT PYD, it is the Northern Ireland DUP.",
+    "Q133207": "Müslüman Kardeşler",
+    "Q41053": "Hizbullah",
+    "Q493302": "Hizb ut-Tahrir"
+  },
+  "new_categories": [
+    "province_tr",
+    "state_tr",
+    "intl_org"
+  ],
+  "allowed_override_divergence": {
+    "_reason": "Deliberate: the override INTENTIONALLY overrides the WD canonical. A new entry is added only with a justification.",
+    "hakkari": "The province (province_tr 'Hakkari') and the city (city_tr 'Hakkâri') are the same place; the alias is pinned to the city so it stays under the same key as 'hakkâri'"
+  },
+  "report_min_entities": {
+    "province_tr": 81,
+    "state_tr": 100,
+    "intl_org": 60,
+    "city_tr": 900,
+    "district_tr": 800
+  },
+  "lost_alias_ratio_max": 0.01
+}

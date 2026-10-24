@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Check formatting
+        run: make fmt-check
+      - name: Vet
+        run: make vet
+      - name: Test
+        run: make test-go
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      # The embedding and NER tests that need sentence-transformers or spaCy skip when those
+      # are not installed, so CI installs only the light dependencies.
+      - name: Install dependencies
+        run: |
+          pip install -r python/canonical_dict/requirements.txt
+          pip install -r python/agentic_curator/requirements.txt
+          pip install grpcio==1.68.1 protobuf==5.29.2 pytest
+      - name: Test
+        run: make test-python

@@ -1,0 +1,9 @@
+# Runtime. sentence-transformers also pulls in torch; the model is downloaded
+# from HuggingFace the first time the service starts (nothing is downloaded by
+# installing or importing).
+grpcio>=1.60
+protobuf>=4.25
+sentence-transformers>=3.0
+
+# Tests (they use the real model, and skip when it is not in the local cache)
+pytest>=8.0

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package serendipity.embedding;
+
+option go_package = "serendipity/internal/embedpb";
+
+// EmbeddingService turns text into fixed-size, L2-normalized vectors.
+service EmbeddingService {
+  // Embed converts a list of texts into vectors. Order is preserved.
+  rpc Embed(EmbedRequest) returns (EmbedResponse);
+  // Health reports whether the model has been loaded.
+  rpc Health(HealthRequest) returns (HealthResponse);
+}
+
+// EmbedKind reflects that models such as the e5 family want separate prefixes for queries and documents.
+enum EmbedKind {
+  EMBED_KIND_PASSAGE = 0; // content to be indexed (default)
+  EMBED_KIND_QUERY = 1;   // search query
+}
+
+message EmbedRequest {
+  repeated string texts = 1;
+  EmbedKind kind = 2;
+}
+
+message Vector {
+  repeated float values = 1;
+}
+
+message EmbedResponse {
+  repeated Vector vectors = 1;
+  int32 dim = 2;
+  string model = 3;
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  bool ready = 1;
+  string model = 2;
+  int32 dim = 3;
+}
